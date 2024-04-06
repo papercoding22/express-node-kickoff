@@ -3,18 +3,25 @@ import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
+import compression from 'compression';
+
+import { NotFoundError } from '@/errors';
+import { errorHandler } from '@/middlewares';
 
 const app = express();
 
-// Use body-parser middleware to parse incoming request bodies
+// Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Use morgan middleware for logging HTTP requests
 app.use(morgan('dev'));
-
-// Use cors middleware to handle Cross-Origin Resource Sharing
 app.use(cors());
+app.use(compression());
+
+app.all('*', async () => {
+  throw new NotFoundError();
+});
+
+app.use(errorHandler);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');

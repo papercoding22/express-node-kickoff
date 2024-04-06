@@ -23,3 +23,7 @@ pnp/
 *.njsproj
 *.sln
 *.sw?
+
+# dist
+dist/
+dist/*

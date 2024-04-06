@@ -1,6 +1,6 @@
 require('module-alias/register');
 
-import app from './app';
+import app from '@/app';
 
 const port = 3000;
 
