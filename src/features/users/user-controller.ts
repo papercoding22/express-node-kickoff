@@ -1,9 +1,12 @@
 import { Request, Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
+
 import users from './User';
 
 export const createUser = (req: Request, res: Response) => {
-  const { id, name, email } = req.body;
-  users[id] = { name, email };
+  const { name, email } = req.body;
+  const id = uuidv4();
+  users[id] = { name, email, id };
   res.status(201).json({
     status: 'success',
     data: {

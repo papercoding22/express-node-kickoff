@@ -7,7 +7,7 @@ import compression from 'compression';
 
 import { NotFoundError } from '@/errors';
 import { errorHandler } from '@/middlewares';
-import userRoutes from '@/features/users/user-routes';
+import userRoutes from '@/features/users';
 
 const app = express();
 
