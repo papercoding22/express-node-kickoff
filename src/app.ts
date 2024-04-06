@@ -1,5 +1,5 @@
 // Create simple express server
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -7,6 +7,7 @@ import compression from 'compression';
 
 import { NotFoundError } from '@/errors';
 import { errorHandler } from '@/middlewares';
+import userRoutes from '@/features/users/user-routes';
 
 const app = express();
 
@@ -21,8 +22,11 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-app.all('*', async () => {
-  throw new NotFoundError();
+app.use('/api/v1/users', userRoutes);
+
+// Handle 404
+app.use('*', (req: Request, res: Response, next: NextFunction) => {
+  next(new NotFoundError());
 });
 
 app.use(errorHandler);
