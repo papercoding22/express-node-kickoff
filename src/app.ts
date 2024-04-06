@@ -17,14 +17,14 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(compression());
 
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World!');
+});
+
 app.all('*', async () => {
   throw new NotFoundError();
 });
 
 app.use(errorHandler);
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!');
-});
 
 export default app;
