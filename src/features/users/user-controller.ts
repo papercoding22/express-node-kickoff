@@ -28,7 +28,7 @@ export const getUser = (req: Request, res: Response) => {
 export const updateUser = (req: Request, res: Response) => {
   const { id } = req.params;
   const { name, email } = req.body;
-  users[id] = { name, email };
+  users[id] = { ...users[id], name, email };
   res.status(200).json({
     status: 'success',
     data: {
